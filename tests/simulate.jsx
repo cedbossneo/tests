@@ -35,7 +35,7 @@ describe('simulate middleware', () => {
     let spy = sinon.spy();
 
     var simulation = () => Test(<TestComponent/>).simulate({method: 'click', element: 'button'})
-    expect(simulation).to.throw('Please call find() method to retrieve some component on which to perform the simulation')
+    expect(simulation).to.throw('Please call find() method before working on elements')
   });
 
   it('should throw an error if element is not found', () => {
