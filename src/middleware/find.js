@@ -12,7 +12,6 @@ export default function find(selector){
   }
   else elements = TestUtils.scryRenderedDOMComponentsWithTag(this.instance, selector)
 
-  if(elements.length === 1) elements = elements[0]
   if(!this.helpers.elements) this.helpers.elements = []
   this.helpers.elements[name || selector] = elements
 }
