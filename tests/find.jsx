@@ -37,4 +37,9 @@ describe('Find middleware', () => {
       expect(tinycomponent.props.test).to.be.equal('true');
     });
   });
+
+  it('should throw an error if nothing is found', () => {
+    var search = () => Test(<TestComponent/>).find('nothing')
+    expect(search).to.throw('Could not find element "nothing"')
+  });
 });
