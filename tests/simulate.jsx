@@ -42,7 +42,7 @@ describe('simulate middleware', () => {
     let spy = sinon.spy();
 
     var simulation = () => Test(<TestComponent/>).find('button').simulate({method: 'click', element: 'not-present'})
-    expect(simulation).to.throw('Could not call click on element "not-present"')
+    expect(simulation).to.throw('Could not find element "not-present"')
   });
 
 });
