@@ -1,20 +1,41 @@
-import React from 'react'
-let { TestUtils } = React.addons
+import React from 'react';
+let { TestUtils } = React.addons;
 
-export default function find(selector){
-  let elements, name
+function doFind(root, selector) {
   if (!(typeof selector === "string")) {
-    name = selector.name.toLowerCase()
-    elements = TestUtils.scryRenderedComponentsWithType(this.instance, selector)
-  } else if (selector.match(/\./)) {
-    selector = selector.replace(/\./, '')
-    elements = TestUtils.scryRenderedDOMComponentsWithClass(this.instance, selector)
+    return {
+      elements: TestUtils.scryRenderedComponentsWithType(root, selector),
+      name: selector.name.toLowerCase()
+    }
   }
-  else elements = TestUtils.scryRenderedDOMComponentsWithTag(this.instance, selector)
+
+  if (selector.match(/\./)) {
+    let className = selector.replace(/\./, '');
+    return {
+      elements: TestUtils.scryRenderedDOMComponentsWithClass(root, className),
+      name: className
+    }
+  }
+
+  return {
+    elements: TestUtils.scryRenderedDOMComponentsWithTag(root, selector),
+    name: selector
+  }
+}
+
+export default function find(selector, options) {
+  let fromRoot = options && options.root;
+  let root = fromRoot ? this.instance : this.root;
+
+  let {elements, name} = doFind(root, selector);
 
   if (!elements || elements.length === 0)
-    throw new Error(`Could not find element "${selector}"`)
+    throw new Error(`Could not find element "${selector}"`);
 
-  if(!this.helpers.elements) this.helpers.elements = []
+  this.root = elements[0];
+
+  if (!this.helpers.elements) {
+    this.helpers.elements = [];
+  }
   this.helpers.elements[name || selector] = elements
 }

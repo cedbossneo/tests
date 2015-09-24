@@ -21,7 +21,7 @@ export default class TestComponent extends Component {
     );
   }
 
-  handleSubmit(event) {
+  handleSubmit() {
     var username = findDOMNode(this.refs.username).value;
     var password = findDOMNode(this.refs.password).value;
     this.props.login(username, password)

@@ -1,6 +1,6 @@
 import Test from '../src/legit-tests'
 import { expect } from 'chai';
-import TestComponent from './component'
+import TestComponent from './components/component'
 import {SetState, Find} from '../src/middleware'
 
 

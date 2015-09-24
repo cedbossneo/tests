@@ -2,7 +2,7 @@ import Test from '../src/legit-tests'
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import FormComponent from './form-component'
+import FormComponent from './components/form-component'
 
 describe('SetValues middleware', () => {
 
@@ -11,7 +11,7 @@ describe('SetValues middleware', () => {
     Test(<FormComponent login={spy}/>)
       .find('input')
       .setValues({elements: 'input', values: ['username', 'password']})
-      .find('form')
+      .find('form', {root: true})
       .simulate({element: 'form', method: 'submit'})
       .test(function () {
 	expect(spy.calledWith('username', 'password')).to.be.true;
