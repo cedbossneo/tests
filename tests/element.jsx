@@ -2,8 +2,8 @@ import Test from '../src/legit-tests'
 import {Find} from '../src/middleware'
 import { expect } from 'chai';
 
-import TestComponent from './component'
-import TinyComponent from './tiny-component'
+import TestComponent from './components/component'
+import TinyComponent from './components/tiny-component'
 
 describe('.element', () => {
 
@@ -18,7 +18,7 @@ describe('.element', () => {
   it('should find box, not div', () => {
     Test(<TestComponent/>)
     .find('.box')
-    .find('div')
+    .find('div', {root: true})
     .element('box', box => {
       expect(box.props.children).to.be.equal('found me!')
     })

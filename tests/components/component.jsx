@@ -1,5 +1,5 @@
 import React from 'react'
-import TinyComponent from './../tiny-component';
+import TinyComponent from './tiny-component';
 
 export default class TestComponent extends React.Component {
   constructor(){

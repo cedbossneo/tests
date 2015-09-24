@@ -3,7 +3,7 @@ import {Find} from '../src/middleware'
 import { expect } from 'chai';
 
 import TestComponent from './components/component'
-import TinyComponent from './tiny-component'
+import TinyComponent from './components/tiny-component'
 
 describe('Find middleware', () => {
 
