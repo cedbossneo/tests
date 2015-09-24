@@ -12,7 +12,7 @@ describe('SetValues middleware', () => {
       .find('input')
       .setValues({elements: 'input', values: ['username', 'password']})
       .find('form', {root: true})
-      .simulate({element: 'form', method: 'submit'})
+      .simulate('submit')
       .test(function () {
 	expect(spy.calledWith('username', 'password')).to.be.true;
       })

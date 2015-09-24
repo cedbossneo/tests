@@ -12,7 +12,7 @@ describe('simulate middleware', () => {
 
     Test(<TestComponent onClick={spy}/>)
     .use(Find, 'div')
-    .use(Simulate, {method: 'click', element: 'div'})
+    .use(Simulate, 'click')
     .test(() => {
       expect(spy.called).to.be.true;
     })
@@ -24,25 +24,11 @@ describe('simulate middleware', () => {
 
     Test(<TestComponent onClick={spy}/>)
     .find('button')
-    .simulate({method: 'click', element: 'button'})
+    .simulate('click')
     .test(function() {
       expect(spy.called).to.be.true;
     })
 
-  });
-
-  it('should throw an error if find is not called before simulate', () => {
-    let spy = sinon.spy();
-
-    var simulation = () => Test(<TestComponent/>).simulate({method: 'click', element: 'button'})
-    expect(simulation).to.throw('Please call find() method before working on elements')
-  });
-
-  it('should throw an error if element is not found', () => {
-    let spy = sinon.spy();
-
-    var simulation = () => Test(<TestComponent/>).find('button').simulate({method: 'click', element: 'not-present'})
-    expect(simulation).to.throw('Could not find element "not-present"')
   });
 
 });
