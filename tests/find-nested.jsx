@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 import ButtonComponent from './components/button-component'
+import TableComponent from './components/table-component'
 
 describe('Find middleware', () => {
 
@@ -18,4 +19,14 @@ describe('Find middleware', () => {
 	expect(component.props.action1.called).to.be.true;
       })
   });
+
+  it('should find multiple elements', () => {
+
+    Test(<TableComponent/>)
+      .find('.table1')
+      .find('td', {multi: true})
+      .element('td', td => {
+	expect(td.length).toEqual(4)
+      })
+  })
 });
