@@ -3,7 +3,19 @@ let { TestUtils } = React.addons
 global.React = React //expose React to tests so they can use jsx syntax when passing in components to the class
 require('react/lib/ExecutionEnvironment').canUseDOM = true
 
-import {Find, SetState, Simulate} from './middleware'
+import {Find, SetState, Simulate, SetValues} from './middleware'
+
+const unarray = (elems) => {
+  return Object.keys(elems).reduce((obj, key) => {
+    let element = elems[key]
+    if (element.length === 1)
+      obj[key] = element[0]
+    else
+      obj[key] = element
+
+    return obj;
+  }, {})
+}
 
 export default class Test {
 
@@ -20,6 +32,7 @@ export default class Test {
     }
 
     this.helpers = {}
+    this.root = this.instance
     return this
   }
 
@@ -29,17 +42,15 @@ export default class Test {
   }
 
   element(select, callback) {
-    if(!this.helpers) return
+    if(!this.helpers) return this
 
-    let element
     if(typeof select === 'string') {
-      element = this.helpers.elements[select]
-      callback.call(this, element)
+      let elements = this.helpers.elements[select]
+      callback.call(this, elements)
       return this
     }
 
-    element = this.getFirst(this.helpers.elements)
-    select.call(this, element)
+    select.call(this, this.root)
     return this
   }
 
@@ -52,7 +63,8 @@ export default class Test {
   params(){
     var length = Object.keys(this.helpers).length
     if(this.helpers.elements && length === 1) {
-      return Object.assign({}, this, this.helpers.elements)
+      let elements = unarray(this.helpers.elements)
+      return Object.assign({}, this, elements)
     }
     return this
   }
@@ -65,18 +77,23 @@ export default class Test {
 
   //Built in middleware
 
-  find(data){
-    Find.call(this, data)
+  find(){
+    Find.call(this, ...arguments)
     return this
   }
 
-  setState(data){
-    SetState.call(this, data)
+  setState(){
+    SetState.call(this, ...arguments)
     return this
   }
 
-  simulate(data){
-    Simulate.call(this, data)
+  simulate(){
+    Simulate.call(this, ...arguments)
+    return this
+  }
+
+  setValues(){
+    SetValues.call(this, ...arguments)
     return this
   }
 

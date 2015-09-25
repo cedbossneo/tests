@@ -26,7 +26,7 @@ describe('Find middleware', () => {
       .find('table')
       .find('td', {multi: true})
       .element('td', td => {
-	expect(td.length).to.equal(4)
+        expect(td.length).to.equal(4)
       })
   });
 
@@ -36,7 +36,7 @@ describe('Find middleware', () => {
       .find('table', {multi: false})
       .find('td', {multi: false})
       .element(td => {
-	expect(td.getDOMNode().textContent).to.equal('1')
+        expect(td.getDOMNode().textContent).to.equal('1')
       })
   });
 
@@ -46,7 +46,7 @@ describe('Find middleware', () => {
       .find('table', {multi: true})
       .find('td', {multi: true})
       .element('td', td => {
-	expect(td.length).to.equal(8)
+        expect(td.length).to.equal(8)
       })
   });
 });

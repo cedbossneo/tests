@@ -2,7 +2,7 @@ import Test from '../src/no-dom'
 import {Find} from '../src/middleware'
 import { expect } from 'chai';
 
-import TestComponent from './component'
+import TestComponent from './components/component'
 
 describe('no dom', () => {
 

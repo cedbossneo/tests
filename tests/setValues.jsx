@@ -14,7 +14,7 @@ describe('SetValues middleware', () => {
       .find('form', {root: true})
       .simulate('submit')
       .test(function () {
-	expect(spy.calledWith('username', 'password')).to.be.true;
+        expect(spy.calledWith('username', 'password')).to.be.true;
       })
   });
 });
