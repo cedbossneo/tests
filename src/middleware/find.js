@@ -23,19 +23,40 @@ function doFind(root, selector) {
   }
 }
 
+function flatten(array) {
+  return [].concat.apply([], array);
+}
+
+function findSingleOrMulti(root, selector) {
+  if (Array.isArray(root)) {
+    var matches = root.map(element => doFind(element, selector));
+    return {
+      elements: flatten(matches.map(match => match.elements)),
+      name: matches[0].name
+    };
+  }
+  return doFind(root, selector);
+}
+
 export default function find(selector, options) {
   let fromRoot = options && options.root;
+  let multi = options && options.multi;
   let root = fromRoot ? this.instance : this.root;
 
-  let {elements, name} = doFind(root, selector);
+  let {elements, name} = findSingleOrMulti(root, selector);
 
   if (!elements || elements.length === 0)
     throw new Error(`Could not find element "${selector}"`);
 
-  this.root = elements[0];
-
   if (!this.helpers.elements) {
     this.helpers.elements = [];
   }
-  this.helpers.elements[name || selector] = elements
+  if (multi) {
+    this.root = elements;
+    this.helpers.elements[name || selector] = elements;
+  } else {
+    this.root = elements[0];
+    this.helpers.elements[name || selector] = elements[0];
+  }
+
 }

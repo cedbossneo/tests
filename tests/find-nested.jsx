@@ -12,21 +12,41 @@ describe('Find middleware', () => {
     let spy = sinon.spy();
 
     Test(<ButtonComponent action1={spy}/>)
-      .find('.main', {root: true})
-      .find('button', {root: false})
+      .find('.main')
+      .find('button')
       .simulate('click')
       .test(({component}) => {
-	expect(component.props.action1.called).to.be.true;
+        expect(component.props.action1.called).to.be.true;
       })
   });
 
   it('should find multiple elements', () => {
 
     Test(<TableComponent/>)
-      .find('.table1')
+      .find('table')
       .find('td', {multi: true})
       .element('td', td => {
-	expect(td.length).toEqual(4)
+	expect(td.length).to.equal(4)
       })
-  })
+  });
+
+  it('should single nested elements', () => {
+
+    Test(<TableComponent/>)
+      .find('table', {multi: false})
+      .find('td', {multi: false})
+      .element(td => {
+	expect(td.getDOMNode().textContent).to.equal('1')
+      })
+  });
+
+  it('should find deeply nested elements', () => {
+
+    Test(<TableComponent/>)
+      .find('table', {multi: true})
+      .find('td', {multi: true})
+      .element('td', td => {
+	expect(td.length).to.equal(8)
+      })
+  });
 });
