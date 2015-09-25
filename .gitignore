@@ -7,3 +7,4 @@ no-dom.js
 tests.js
 !src/**
 
+.idea
