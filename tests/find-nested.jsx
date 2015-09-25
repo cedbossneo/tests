@@ -30,7 +30,7 @@ describe('Find middleware', () => {
       })
   });
 
-  it('should single nested elements', () => {
+  it('should find single element when multi is false', () => {
 
     Test(<TableComponent/>)
       .find('table', {multi: false})

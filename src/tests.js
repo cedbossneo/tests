@@ -3,7 +3,7 @@ let { TestUtils } = React.addons
 global.React = React //expose React to tests so they can use jsx syntax when passing in components to the class
 require('react/lib/ExecutionEnvironment').canUseDOM = true
 
-import {Find, SetState, Simulate, SetValues} from './middleware'
+import {Find, SetState, Simulate, SetValues, Index} from './middleware'
 
 const unarray = (elems) => {
   return Object.keys(elems).reduce((obj, key) => {
@@ -79,6 +79,11 @@ export default class Test {
 
   find(){
     Find.call(this, ...arguments)
+    return this
+  }
+
+  index(){
+    Index.call(this, ...arguments)
     return this
   }
 
